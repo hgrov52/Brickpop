@@ -1,9 +1,11 @@
 # Brickpop
 
 REQUIREMENTS:
+
 Python27
 
 pyautogui
+
 PIL
 
 HOW TO RUN:

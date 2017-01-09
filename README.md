@@ -1,6 +1,6 @@
 # Brickpop
 
-REQUIREMENTS:
+REQUIREMENTS: (last two obtaibable by downloading pip then in command prompt type "pip install ____")
 
 Python27
 

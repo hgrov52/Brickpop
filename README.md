@@ -2,6 +2,7 @@
 
 REQUIREMENTS:
 Python27
+
 pyautogui
 PIL
 

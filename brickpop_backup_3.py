@@ -45,18 +45,18 @@ def print_board():
 	for x in board:
 		print x
 
-def build_board(full):
+def build_board(full=True):
 	global board
 
 	partial_board = []
 	'''Facebook'''
-	im=ImageGrab.grab(bbox=(720,345,1180,805))
+	#im=ImageGrab.grab(bbox=(720,345,1180,805))
 	'''Facebook at left half'''
 	#im=ImageGrab.grab(bbox=(245,360,705,755))
 	'''Practice'''
 	#im=ImageGrab.grab(bbox=(635,225,1290,895))
 	'''Practice at left half'''
-	#im=ImageGrab.grab(bbox=(150,250,810,910))
+	im=ImageGrab.grab(bbox=(150,250,810,910))
 	
 	
 	#im.show()
@@ -313,17 +313,14 @@ def pick_piece(piece):
 	shift()
 
 def play():
-	global board,moves,f,estop,solution_score
+	global board,moves,f,solution_score
 
 	temp_board = board
 	pieces = assign_pieces()
 	shuffle(pieces)
 	estop[0] = time.time()
 	for x in pieces:
-		#print 'new piece'
-		if(estop[1]-estop[0]>5):
-			#print 'ebrake'
-			return False
+		
 		board = temp_board
 		won = False
 		f.write('\n========================================'+str(x))
@@ -337,6 +334,7 @@ def play():
 			return True
 		else:
 			moves = []
+	print "really cant be solved"
 	board = temp_board
 
 	
@@ -349,8 +347,8 @@ def play_helper(piece):
 	pieces = assign_pieces()
 	shuffle(pieces)
 	estop[1] = time.time()
-	if(estop[1]-estop[0]>5):
-		return False
+	if(estop[1]-estop[0]>7):
+		raise Exception("Took too long")
 	s=0
 	for x in pieces:
 		s+=len(x)
@@ -376,14 +374,22 @@ def play_helper(piece):
 
 def check():
 	partial_board = build_board(False)
-	
-	
-	if(board!=partial_board):
+	same = True
+	for x in range(10):
+		for y in range(10):
+			if(board[x][y]!=partial_board[x][y]):
+				print (x,y),board[x][y]
+				same = False
+				break
+		if(same==False):
+			break
+	if(same==False):
 		
 
 		for y in partial_board:
 			print y
 		print
+		print "partial board above does not match board below"
 		print_board()
 		raise Exception("Something went wrong")
 
@@ -395,14 +401,12 @@ def automate(moves):
 	real_l=(245,360,705,760)
 	real=(720,345,1180,805)
 
-	box_l = real
+	box_l = practice_l
 
 	x_range = box_l[2]-box_l[0]
 	y_range = box_l[3]-box_l[1]
 
-	if(len(moves)==0):
-		raise Exception("CANNOT BE SOLVED")
-	print_board()
+	#print_board()
 	print
 	for piece in moves[::-1]:
 		
@@ -433,53 +437,20 @@ solution_score = 0
 f = open("C:\Users\groveh\Documents\Brickpop\write.txt",'w+')
 if __name__ == "__main__":
 	
-	while(True):
-		board = []
-		new_board = []
-		solutions = []
-
-		finished = False
-		start = time.time()
-		global estop,solution_score
-		analyzing_time_start = time.time()
-		analyzing_time_end = time.time()
-		security_counter = 0
-
-		build_board(True)
-		print_board()
-		while(analyzing_time_end-analyzing_time_start<5 or len(solutions)==0):
-			analyzing_time_broken = time.time()
-			print 'analyzing...',analyzing_time_end-analyzing_time_start
-			if(analyzing_time_end-analyzing_time_start>25):
-				raise Exception("Dont know why this happens.. Try again")
-			estop = [0,0]
-			moves = []
-			solution_score = 0
-			finished = play()
-			if(finished==True):
-				print "found a solution -",solution_score
-				solutions.append((moves,solution_score))
-			analyzing_time_end = time.time()
-			if(analyzing_time_end - analyzing_time_broken<.1):
-				security_counter+=1
-				if(security_counter>100):
-					raise Exception("broken")
-
-		best = 0,0
-		for x in solutions:
-			if(x[1]>best[1]):
-				best = x
-		moves = best[0]		
-		print 
-		
-		automate(moves)
-		print "waiting for title screen..."
-		temp_time_s=time.time()
-		temp_time_e=time.time()
-		while(temp_time_e-temp_time_s<10):
-			temp_time_e=time.time()
+	global board
+	board = build_board(False)
+	assign_pieces_rec
+	print_board()
 	
-		
+	play()
+
+	print 
+	if(len(moves)==0):
+		raise Exception("Returned no pieces in play helper")
+	
+	print "Expected Score:",solution_score
+	automate(moves)
+	print "Bruh you nailed it!!!:",solution_score,"pts"
 
 '''
 score = len(piece)*len(piece)-len(piece)

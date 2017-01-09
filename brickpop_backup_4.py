@@ -59,7 +59,7 @@ def build_board(full):
 	#im=ImageGrab.grab(bbox=(150,250,810,910))
 	
 	
-	#im.show()
+	im.show()
 	#im = Image.open('C:\Users\groveh\Documents\Brickpop\image2.png')
 	#im.show()
 	im = im.resize((100, 100))  

@@ -1,2 +1,11 @@
 # Brickpop
-Solver for the popular facebook game "brick pop"
+
+REQUIREMENTS:
+Python27
+pyautogui
+PIL
+
+HOW TO RUN:
+Open facebook to the game "Brickpop"
+maximize the window
+

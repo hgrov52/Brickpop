@@ -1,11 +1,8 @@
 # Brickpop
 
-REQUIREMENTS: (last two obtainable by downloading pip then under the pip directory path type in command prompt  "pip install ____")
-
-Python27
-
+Dependencies:
+Python 2.7
 pyautogui
-
 PIL
 
 HOW TO RUN:

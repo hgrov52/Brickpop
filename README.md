@@ -1,9 +1,9 @@
 # Brickpop
 
 Dependencies:
-Python 2.7
-pyautogui
-PIL
+<Python 2.7>
+<pyautogui>
+<PIL>
 
 HOW TO RUN:
 

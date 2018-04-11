@@ -1,6 +1,6 @@
 # Brickpop
 
-Dependencies:
+## Dependencies:
 
 Python 2.7
 
@@ -8,7 +8,7 @@ pyautogui
 
 PIL
 
-HOW TO RUN:
+## HOW TO RUN:
 
 Open facebook to the game "Brickpop"
 
